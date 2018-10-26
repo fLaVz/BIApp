@@ -1,6 +1,7 @@
 # BIApp
 
 A enlever RANGDEM -> car redondance avec ANNEDEM
+Modifier RANGAGEDEM avec les catgories supérieures à 56 ans en '56-+' pour comparaison ave RANGAGEAD
 
 Trier les données, virer les colonnes redondantes ou non "utiles"
 Que faire des valeurs manquantes ?
