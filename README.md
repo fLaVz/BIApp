@@ -1,5 +1,7 @@
 # BIApp
 
+A enlever RANGDEM -> car redondance avec ANNEDEM
+
 Trier les données, virer les colonnes redondantes ou non "utiles"
 Que faire des valeurs manquantes ?
 Changer les valeurs des champs en numérique ou non
