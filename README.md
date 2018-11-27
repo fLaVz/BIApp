@@ -5,7 +5,7 @@
 ### Prepare Data
 
 - [x] Explore
-- [ ] Clean 
+- [x] Clean 
 - [ ] Reshape
 - [ ] Preprocessing 
 - [ ] Cut
