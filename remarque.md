@@ -13,6 +13,10 @@ Changer les valeurs des champs en numérique ou non
 Une fois les données prêtes, comment on les découpes (80% apprentissage, 10% test, 10% validation ?)  
   
 Puis après tout ça --> méthode de classification, SVM, k-means, +1 a choisir  
+Proposition pour le choix de la méthode :  
+Arbre de décision (DecisionTreeClassifier)  
+Régression logistique (LogisticRegression)
+
   
   
 ### table 2
