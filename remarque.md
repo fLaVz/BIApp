@@ -9,14 +9,17 @@ Trier les données, virer les colonnes redondantes ou non "utiles"
 Que faire des valeurs manquantes ?  
 Changer les valeurs des champs en numérique ou non  
 (ACP ?)  
+Normaliser les valeurs numériques ? (StandardScaler ?)  
+Discréditer les valeurs nominales ? (get_dummies de la lib pandas ?)
   
 Une fois les données prêtes, comment on les découpes (80% apprentissage, 10% test, 10% validation ?)  
   
 Puis après tout ça --> méthode de classification, SVM, k-means, +1 a choisir  
-## Proposition pour le choix de la méthode :  
+### Proposition pour le choix de la méthode :  
 Arbre de décision (DecisionTreeClassifier)  
 Régression logistique (LogisticRegression)
-
+  
+Pour K-means nécessite l'ACP (problème possible pour les valeurs non numériques --> les ignorer ou les convertir)
   
   
 ### table 2
