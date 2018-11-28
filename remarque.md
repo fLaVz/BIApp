@@ -14,12 +14,14 @@ Discréditer les valeurs nominales ? (get_dummies de la lib pandas ?)
   
 Une fois les données prêtes, comment on les découpes (80% apprentissage, 10% test, 10% validation ?)  
   
-Puis après tout ça --> méthode de classification, SVM, k-means, +1 a choisir  
+Puis après tout ça --> méthode de classification, SVM, k plus proche voisin, +1 a choisir  
 ### Proposition pour le choix de la méthode :  
 Arbre de décision (DecisionTreeClassifier)  
-Régression logistique (LogisticRegression)
+Régression logistique (LogisticRegression)  
   
-Pour K-means nécessite l'ACP (problème possible pour les valeurs non numériques --> les ignorer ou les convertir)
+Pour K plus proche voisins a besoin de metrique de distance (problème possible pour les valeurs non numériques --> les ignorer ou les convertir)  
+  
+voir sklearn.neighbors
   
   
 ### table 2
