@@ -33,3 +33,14 @@ CDTMT pas de 4,6
 CDTMT pas de 4  
 CDCATCL pas de 50, 98 (pas de supérieur à 40)  
 NBENF pas de supérieur à 6  
+range numeric car ordre
+
+## Merge tables
+Attributs semblables:  
+- cdsexe
+- dtdem
+- cdtmt
+- cdcatcl
+- dtadh
+- cdmotdem
+- agedem = dtdem - dtnais
