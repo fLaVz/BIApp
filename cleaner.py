@@ -28,9 +28,24 @@ def cleanColumn(name):
 
 def cleanRange(name):
     DATA_1[name] = DATA_1[name].astype(str)    
-    DATA_1.replace('nan', '0 0-0', inplace=True)
+    DATA_1.replace('nan', '0', inplace=True)
+    for i, row in enumerate(DATA_1[name]):
+        DATA_1.at[i, name] = str(row).split()[0]
+    
+    for i, row in enumerate(DATA_1['RANGAGEAD']):
+        DATA_1.at[i, 'RANGAGEAD'] = str(row).split()[0]
+    
+    for i, row in enumerate(DATA_1['RANGAGEDEM']):
+        if 'a' in str(row):
+            DATA_1.at[i, 'RANGAGEDEM'] = '10'
+        elif 'b' in str(row): 
+            DATA_1.at[i, 'RANGAGEDEM'] = '11'
+        else:
+            DATA_1.at[i, 'RANGAGEDEM'] = str(row).split()[0]
+
     DATA_1.to_csv(path1, sep=',', encoding='utf-8', index=False)
     print(name + ': cleaned')
+
 
 # cleanDate('table2.csv')
 # cleanColumn('RANGDEM', 'data/table1.csv')
