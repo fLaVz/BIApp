@@ -47,6 +47,29 @@ def cleanRange(name):
     print(name + ': cleaned')
 
 
+def mergetables():
+
+    lendata1 = len(DATA_1)
+    learn1 = int(lendata1 * 0.8)
+    test1 = learn1 + int(lendata1 * 0.1)
+
+    lendata2 = len(DATA_2)
+    learn2 = int(lendata2 * 0.8)
+    test2 = learn2 + int(lendata2 * 0.1)
+
+    data1learn = DATA_1[:learn1]
+    data1test = DATA_1[learn1:test1]
+    data1val = DATA_1[test1:]
+
+    data2learn = DATA_2[:learn2]
+    data2test = DATA_2[learn2:test2]
+    data2val = DATA_2[test2:]
+
+
+    cols = ['CDSEXE', 'DTDEM', 'CDTMT', 'CDCATCL', 'DTADH', 'CDMOTDEM']
+    df = pd.DataFrame(columns=cols)
+
+
 # cleanDate('table2.csv')
 # cleanColumn('RANGDEM', 'data/table1.csv')
 # cleanRange('RANGADH', 'data/table1.csv')
