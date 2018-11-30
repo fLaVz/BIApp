@@ -49,25 +49,47 @@ def cleanRange(name):
 
 def mergetables():
 
-    lendata1 = len(DATA_1)
+    clean1 = pd.read_csv('clean1.csv')
+    clean2 = pd.read_csv('clean2.csv')
+    
+    clean1['CLASS'] = 1
+    clean2 = addTarget(clean2)
+
+    lendata1 = len(clean1)
     learn1 = int(lendata1 * 0.8)
     test1 = learn1 + int(lendata1 * 0.1)
 
-    lendata2 = len(DATA_2)
+    lendata2 = len(clean2)
     learn2 = int(lendata2 * 0.8)
     test2 = learn2 + int(lendata2 * 0.1)
 
-    data1learn = DATA_1[:learn1]
-    data1test = DATA_1[learn1:test1]
-    data1val = DATA_1[test1:]
+    data1learn = clean1[:learn1]
+    data1test = clean1[learn1:test1]
+    data1val = clean1[test1:]
 
-    data2learn = DATA_2[:learn2]
-    data2test = DATA_2[learn2:test2]
-    data2val = DATA_2[test2:]
+    data2learn = clean2[:learn2]
+    data2test = clean2[learn2:test2]
+    data2val = clean2[test2:]
 
+    cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'CLASS']
+    # dftest = pd.read_csv('clean1.csv', usecols=cols)
+    
+    m_learn = data1learn[cols].append(data2learn[cols])
+    m_validate = data1test[cols].append(data2test[cols])
+    m_test = data1val[cols].append(data2val[cols])
+    m_learn.to_csv('test.csv', sep=',', encoding='utf-8', index=False)
+    
+    alldata = [m_learn, m_test, m_validate]
+    return alldata
 
-    cols = ['CDSEXE', 'DTDEM', 'CDTMT', 'CDCATCL', 'DTADH', 'CDMOTDEM']
-    df = pd.DataFrame(columns=cols)
+def addTarget(df):
+    df['CDMOTDEM'] = df['CDMOTDEM'].astype(str) 
+    df['CLASS'] = 1
+    df.replace('nan', '0', inplace=True)
+    for i, row in enumerate(df['CDMOTDEM']):
+        if str(row) == '0':
+            df.at[i, 'CLASS'] = 0
+    return df
 
 
 # cleanDate('table2.csv')
