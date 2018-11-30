@@ -12,7 +12,7 @@
 
 ### Classification
 
-- [ ] SVM, K-Means & ?
+- [ ] SVM, K plus proche voisin & ?
 - [ ] Learn
 - [ ] Compare
 - [ ] Refining
