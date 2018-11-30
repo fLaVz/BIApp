@@ -46,3 +46,6 @@ Attributs semblables:
 - dtadh
 - cdmotdem
 - agedem = dtdem - dtnais
+
+## KNN
+faire courbe de perf en fonction de k

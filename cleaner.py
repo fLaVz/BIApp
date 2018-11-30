@@ -83,7 +83,7 @@ def mergetables():
     return alldata
 
 def addTarget(df):
-    df['CDMOTDEM'] = df['CDMOTDEM'].astype(str) 
+    df['CDMOTDEM'] = df['CDMOTDEM'].astype(str)
     df['CLASS'] = 1
     df.replace('nan', '0', inplace=True)
     for i, row in enumerate(df['CDMOTDEM']):

@@ -24,7 +24,7 @@ def only_class_data(data):
 	return data
 
 def fit_data(data,classe):
-	neigh = KNeighborsClassifier(n_neighbors=3, algorithm='auto')
+	neigh = KNeighborsClassifier(n_neighbors=34, algorithm='auto')
 	neigh.fit(data,classe)
 	return neigh
 
