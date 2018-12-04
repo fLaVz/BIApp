@@ -6,6 +6,8 @@ from sklearn.neighbors import KNeighborsClassifier
 import pandas as pd 
 import sklearn
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
@@ -22,8 +24,7 @@ def only_class_data(data):
 
 def fit_data(data,classe):
 	neigh = KNeighborsClassifier(n_neighbors=34, algorithm='auto')
-	test = neigh.fit(data,classe)
-	print(test)
+	neigh.fit(data,classe)
 	return neigh
 
 def graphs_k(neigh,data):

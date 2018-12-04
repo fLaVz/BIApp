@@ -2,6 +2,8 @@
 
 import pandas as pd
 import shutil
+from datetime import datetime
+
 
 path1 = 'clean1.csv'
 path2 = 'clean2.csv'
@@ -9,6 +11,7 @@ shutil.copy2('data/table1.csv', path1)
 shutil.copy2('data/table2.csv', path2)
 DATA_1 = pd.read_csv(path1, sep=',')
 DATA_2 = pd.read_csv(path2, sep=',')
+
 
 # Clean dates for table2.csv, needs refractor if format data
 def cleanDate():
@@ -47,11 +50,20 @@ def cleanRange(name):
     print(name + ': cleaned')
 
 
-def mergetables():
+def mergetablesKnn(type):
 
     clean1 = pd.read_csv('clean1.csv')
     clean2 = pd.read_csv('clean2.csv')
-    
+
+    if type == 'base':  
+        cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'CLASS']
+        # dftest = pd.read_csv('clean1.csv', usecols=cols)
+    elif type == 'evolved':
+        clean2['AGEAD'] = list(map(sub_year, zip(clean2['DTADH'], clean2['DTNAIS'])))
+        clean2['AGEDEM'] = list(map(sub_year, zip(clean2['DTDEM'], clean2['DTNAIS'])))
+        cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'AGEAD', 'AGEDEM', 'CLASS']
+
+
     clean1['CLASS'] = 1
     clean2 = addTarget(clean2)
 
@@ -71,9 +83,6 @@ def mergetables():
     data2test = clean2[learn2:test2]
     data2val = clean2[test2:]
 
-    cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'CLASS']
-    # dftest = pd.read_csv('clean1.csv', usecols=cols)
-    
     m_learn = data1learn[cols].append(data2learn[cols])
     m_validate = data1test[cols].append(data2test[cols])
     m_test = data1val[cols].append(data2val[cols])
@@ -81,6 +90,7 @@ def mergetables():
     
     alldata = [m_learn, m_test, m_validate]
     return alldata
+
 
 def addTarget(df):
     df['CDMOTDEM'] = df['CDMOTDEM'].astype(str)
@@ -90,7 +100,13 @@ def addTarget(df):
         if str(row) == '0':
             df.at[i, 'CLASS'] = 0
     return df
-
+    
+def sub_year(item):
+    if int(item[0].split('/')[2]) != 1900:
+        return int(item[0].split("/")[2]) - int(item[1].split("/")[2])
+    else:
+        return 0
+    
 
 # cleanDate('table2.csv')
 # cleanColumn('RANGDEM', 'data/table1.csv')
