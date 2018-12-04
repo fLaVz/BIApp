@@ -10,22 +10,20 @@ import matplotlib.pyplot as plt
 
 
 def read_file(file):
-	data = pd.read_csv(file, encoding = "utf-8")
 	#data.replace('nan','999999',inplace=True)
 	#print(data)
-	return data
+	return pd.read_csv(file, encoding = "utf-8")
 
 def drop_class_data(data):
-	data = data.loc[:, data.columns != 'CLASS']
-	return data
+	return data.loc[:, data.columns != 'CLASS']
 
 def only_class_data(data):
-	data = data['CLASS']
-	return data
+	return data['CLASS']
 
 def fit_data(data,classe):
 	neigh = KNeighborsClassifier(n_neighbors=34, algorithm='auto')
-	neigh.fit(data,classe)
+	test = neigh.fit(data,classe)
+	print(test)
 	return neigh
 
 def graphs_k(neigh,data):
