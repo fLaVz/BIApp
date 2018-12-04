@@ -27,13 +27,14 @@ def fit_data(data,classe):
 	neigh.fit(data,classe)
 	return neigh
 
-def graphs_k(neigh,data):
-	g = neigh.kneighbors_graph(data)
-	print(g)
+def fit_data2(data,classe,n):
+	neigh = KNeighborsClassifier(n_neighbors=n, algorithm='auto')
+	neigh.fit(data,classe)
+	return neigh
 
 def acc_score(neigh,dataTest,classeTest):
-	res = neigh.score(dataTest,classeTest)
-	print("Précision du résultat : %f" % res)
+	#print("Précision du résultat : %f" % res)
+	return neigh.score(dataTest,classeTest)
 
 def run_knn(tab):
 	X = drop_class_data(tab[0])
@@ -41,7 +42,32 @@ def run_knn(tab):
 	neigh = fit_data(X,y)
 	Xtest = drop_class_data(tab[1])
 	Ytest = only_class_data(tab[1])
-	acc_score(neigh,Xtest,Ytest)
+	show_accuracy(acc_score(neigh,Xtest,Ytest))
+
+def make_graph(start, end, step, tab, nameFig):
+	print("Création du graphe en cours")
+	t = np.array(0.)
+	t2 = np.array(0)
+	for i in range(start,end,step):
+		# print(i)
+		t2 = np.append(t2,i)
+		X = drop_class_data(tab[0])
+		y = only_class_data(tab[0])
+		neigh = fit_data2(X,y,i)
+		Xtest = drop_class_data(tab[1])
+		Ytest = only_class_data(tab[1])
+		t = np.append(t,acc_score(neigh,Xtest,Ytest))
+	figure = pd.Series(t, index=t2)
+	figure.plot(kind='line')
+	plt.title("Graphique des scores")
+	plt.xlabel("Nombre de voisin")
+	plt.ylabel("Score")
+	plt.savefig(nameFig)
+	plt.show()
+	print("Graphe créé !")
+
+def show_accuracy(res):
+	print("Précision du résultat : %f" % res)
 
 #data = read_file("test2.csv")
 #X = drop_class_data(data)

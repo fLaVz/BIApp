@@ -10,7 +10,9 @@ if __name__ == "__main__":
     cleaner.cleanRange('RANGADH')
     merge = cleaner.mergetablesKnn('base')
     knn.run_knn(merge)
+    # knn.make_graph(1,101,1,merge,"graphKnn")
 
     # Knn evolved
     merge = cleaner.mergetablesKnn('evolved')
     knn.run_knn(merge)
+    # knn.make_graph(1,101,1,merge,"graphKnn2")
