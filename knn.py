@@ -36,10 +36,10 @@ def acc_score(neigh,dataTest,classeTest):
 	#print("Précision du résultat : %f" % res)
 	return neigh.score(dataTest,classeTest)
 
-def run_knn(tab):
+def run_knn(tab, neighbors):
 	X = drop_class_data(tab[0])
 	y = only_class_data(tab[0])
-	neigh = fit_data(X,y)
+	neigh = fit_data2(X,y, neighbors)
 	Xtest = drop_class_data(tab[1])
 	Ytest = only_class_data(tab[1])
 	show_accuracy(acc_score(neigh,Xtest,Ytest))

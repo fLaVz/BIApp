@@ -86,6 +86,8 @@ def mergetablesKnn(type):
     m_learn = data1learn[cols].append(data2learn[cols])
     m_validate = data1test[cols].append(data2test[cols])
     m_test = data1val[cols].append(data2val[cols])
+    
+    # for tests purposes
     m_learn.to_csv('test.csv', sep=',', encoding='utf-8', index=False)
     
     alldata = [m_learn, m_test, m_validate]
