@@ -87,6 +87,22 @@ def feature_ablation(tab, neighbors):
 		show_accuracy(acc_score(neigh,Xtest,Ytest))
 		print('-----------------------------------------------------------')
 
+def best_knn(start, end, step, tab):
+	print("Calcul du meilleur voisin en cours")
+	val = 0
+	res = 0
+	for i in range(start,end,step):
+		X = drop_class_data(tab[0])
+		y = only_class_data(tab[0])
+		neigh = fit_data2(X,y,i)
+		Xtest = drop_class_data(tab[1])
+		Ytest = only_class_data(tab[1])
+		res2 = acc_score(neigh,Xtest,Ytest)
+		if(res2 > res):
+			res = res2
+			val = i
+	print("Meilleur resultat : %f " % res)
+	print("Pour val : %f " % val)
 #data = read_file("test2.csv")
 #X = drop_class_data(data)
 #Y = only_class_data(data)
