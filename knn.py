@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from termcolor import colored, cprint
 
 
 def read_file(file):
@@ -68,6 +69,23 @@ def make_graph(start, end, step, tab, nameFig):
 
 def show_accuracy(res):
 	print("Précision du résultat : %f" % res)
+
+def feature_ablation(tab, neighbors):
+	print('Running feature ablation...')
+	cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'A','B','C','D','E','F','G','M','P','S','U','V']
+	tmp = []
+
+	for i in range(len(cols)):
+		tmp = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'A','B','C','D','E','F','G','M','P','S','U','V']
+		cprint(tmp[i] + ' removed', 'red')
+		tmp.pop(i)
+		X = tab[0][tmp]
+		y = tab[0]['CLASS']
+		neigh = fit_data2(X,y, neighbors)
+		Xtest = tab[1][tmp]
+		Ytest = tab[1]['CLASS']
+		show_accuracy(acc_score(neigh,Xtest,Ytest))
+		print('-----------------------------------------------------------')
 
 #data = read_file("test2.csv")
 #X = drop_class_data(data)

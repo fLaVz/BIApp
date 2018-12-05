@@ -54,18 +54,24 @@ def mergetablesKnn(type):
 
     clean1 = pd.read_csv('clean1.csv')
     clean2 = pd.read_csv('clean2.csv')
-
+    dumm1 = pd.get_dummies(clean1['CDSITFAM'])
+    dumm2 = pd.get_dummies(clean2['CDSITFAM'])
+    
     if type == 'base':  
         cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'CLASS']
+        numcols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'CLASS']
         # dftest = pd.read_csv('clean1.csv', usecols=cols)
     elif type == 'evolved':
         clean2['AGEAD'] = list(map(sub_year, zip(clean2['DTADH'], clean2['DTNAIS'])))
         clean2['AGEDEM'] = list(map(sub_year, zip(clean2['DTDEM'], clean2['DTNAIS'])))
         cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'AGEAD', 'AGEDEM', 'CLASS']
+        numcols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'AGEAD', 'AGEDEM', 'CLASS']
 
-
+    cols += list(dumm2)
     clean1['CLASS'] = 1
     clean2 = addTarget(clean2)
+    clean1 = clean1[numcols].add(dumm1, fill_value=0)
+    clean2 = clean2[numcols].add(dumm2, fill_value=0)
 
     lendata1 = len(clean1)
     learn1 = int(lendata1 * 0.8)
@@ -105,10 +111,19 @@ def addTarget(df):
     
 def sub_year(item):
     if int(item[0].split('/')[2]) != 1900:
-        return int(item[0].split("/")[2]) - int(item[1].split("/")[2])
+        return int(item[0].split('/')[2]) - int(item[1].split('/')[2])
     else:
-        return 0
+        return 2007 - int(item[1].split('/')[2])
     
+
+def mergetables_knn_eq():
+    clean1 = pd.read_csv('clean1.csv')
+    clean2 = pd.read_csv('clean2.csv')
+
+    clean1['CLASS'] = 1
+    clean2 = addTarget(clean2)
+    
+
 
 # cleanDate('table2.csv')
 # cleanColumn('RANGDEM', 'data/table1.csv')
