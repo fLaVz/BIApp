@@ -3,7 +3,7 @@
 import pandas as pd
 import shutil
 from datetime import datetime
-
+from timer import timing
 
 path1 = 'clean1.csv'
 path2 = 'clean2.csv'
@@ -14,6 +14,7 @@ DATA_2 = pd.read_csv(path2, sep=',')
 
 
 # Clean dates for table2.csv, needs refractor if format data
+@timing
 def cleanDate():
     for i, date in DATA_2.iterrows():
         #print(date)
@@ -51,16 +52,18 @@ def cleanRange(name):
 
 
 def mergetablesKnn(type):
-
+    print("Unification des tables...")
     df1 = pd.read_csv('clean1.csv')
     df2 = pd.read_csv('clean2.csv')
     df1['CLASS'] = 1
     df2 = addTarget(df2)
 
     if type == 'base':  
+        print("Unification basique")
         cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'CDSITFAM', 'CLASS']
         # dftest = pd.read_csv('clean1.csv', usecols=cols)
     elif type == 'evolved':
+        print("Unification évoluée")
         df2['AGEAD'] = list(map(sub_year, zip(df2['DTADH'], df2['DTNAIS'])))
         df2['AGEDEM'] = list(map(sub_year, zip(df2['DTDEM'], df2['DTNAIS'])))
         cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDSITFAM', 'CDCATCL', 'AGEAD', 'AGEDEM', 'CLASS']
@@ -120,12 +123,13 @@ def sub_year(item):
         return 2007 - int(item[1].split('/')[2])
     
 
-def mergetables_knn_eq():
-    clean1 = pd.read_csv('clean1.csv')
-    clean2 = pd.read_csv('clean2.csv')
+# def mergetables_knn_eq():
+#     clean1 = pd.read_csv('clean1.csv')
+#     clean2 = pd.read_csv('clean2.csv')
 
-    clean1['CLASS'] = 1
-    clean2 = addTarget(clean2)
+#     clean1['CLASS'] = 1
+#     clean2 = addTarget(clean2)
+#     print(clean2)
     
 
 

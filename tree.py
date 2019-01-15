@@ -26,6 +26,7 @@ def acc_score(neigh,dataTest,classeTest):
 
 def show_accuracy(res):
 	print("Précision du résultat : %f" % res)
+	print('----------------------------------------------------------'  + '\n')
 
 def run_tree(tab):
     X = drop_class_data(tab[0])

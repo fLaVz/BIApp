@@ -64,6 +64,7 @@ def acc_score(svm,dataTest,classeTest):
 
 def show_accuracy(res):
 	print("Précision du résultat : %f" % res)
+	print('----------------------------------------------------------'  + '\n')
 
 def run_svm(tab):
     X = drop_class_data(tab[0])
@@ -73,4 +74,3 @@ def run_svm(tab):
     Xtest = drop_class_data(tab[1])
     Ytest = only_class_data(tab[1])
     show_accuracy(acc_score(svm,Xtest,Ytest))
-

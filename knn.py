@@ -69,6 +69,7 @@ def make_graph(start, end, step, tab, nameFig):
 
 def show_accuracy(res):
 	print("Précision du résultat : %f" % res)
+	print('----------------------------------------------------------'  + '\n')
 
 def feature_ablation(tab, neighbors):
 	print('Running feature ablation...')
@@ -85,7 +86,6 @@ def feature_ablation(tab, neighbors):
 		Xtest = tab[1][tmp]
 		Ytest = tab[1]['CLASS']
 		show_accuracy(acc_score(neigh,Xtest,Ytest))
-		print('-----------------------------------------------------------')
 
 def best_knn(start, end, step, tab):
 	print("Calcul du meilleur voisin en cours")
