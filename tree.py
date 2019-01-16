@@ -5,6 +5,8 @@ from sklearn import tree as tr
 
 import pandas as pd 
 # import sklearn
+from timer import timing
+from termcolor import colored, cprint
 
 
 def read_file(file):
@@ -25,14 +27,20 @@ def acc_score(neigh,dataTest,classeTest):
 	return neigh.score(dataTest,classeTest)
 
 def show_accuracy(res):
-	print("Précision du résultat : %f" % res)
-	print('----------------------------------------------------------'  + '\n')
+	cprint("Précision du résultat : %f" % res, 'green')
 
-def run_tree(tab):
-    X = drop_class_data(tab[0])
-    y = only_class_data(tab[0])
-    dec = fit_data(X,y)
-    Xtest = drop_class_data(tab[1])
-    Ytest = only_class_data(tab[1])
-    show_accuracy(acc_score(dec,Xtest,Ytest))
+@timing
+def run_tree(tab, phase):
+	X = drop_class_data(tab[0])
+	y = only_class_data(tab[0])
+	dec = fit_data(X,y)
+
+	if phase == 'test':
+		Xtest = drop_class_data(tab[1])
+		Ytest = only_class_data(tab[1])
+	elif phase == 'validation':
+		Xtest = drop_class_data(tab[2])
+		Ytest = only_class_data(tab[2])
+
+	show_accuracy(acc_score(dec,Xtest,Ytest))
 

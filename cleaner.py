@@ -14,7 +14,6 @@ DATA_2 = pd.read_csv(path2, sep=',')
 
 
 # Clean dates for table2.csv, needs refractor if format data
-@timing
 def cleanDate():
     for i, date in DATA_2.iterrows():
         #print(date)
@@ -51,8 +50,7 @@ def cleanRange(name):
     print(name + ': cleaned')
 
 
-def mergetablesKnn(type):
-    print("Unification des tables...")
+def mergetables(type):
     df1 = pd.read_csv('clean1.csv')
     df2 = pd.read_csv('clean2.csv')
     df1['CLASS'] = 1

@@ -10,6 +10,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from termcolor import colored, cprint
+from timer import timing
 
 
 def read_file(file):
@@ -37,12 +38,18 @@ def acc_score(neigh,dataTest,classeTest):
 	#print("Précision du résultat : %f" % res)
 	return neigh.score(dataTest,classeTest)
 
-def run_knn(tab, neighbors):
+@timing
+def run_knn(tab, neighbors, phase):
 	X = drop_class_data(tab[0])
 	y = only_class_data(tab[0])
 	neigh = fit_data2(X,y, neighbors)
-	Xtest = drop_class_data(tab[1])
-	Ytest = only_class_data(tab[1])
+	if phase == 'test':
+		Xtest = drop_class_data(tab[1])
+		Ytest = only_class_data(tab[1])
+	elif phase == 'validation':
+		Xtest = drop_class_data(tab[2])
+		Ytest = only_class_data(tab[2])
+
 	show_accuracy(acc_score(neigh,Xtest,Ytest))
 
 def make_graph(start, end, step, tab, nameFig):
@@ -68,8 +75,7 @@ def make_graph(start, end, step, tab, nameFig):
 	print("Graphe créé !")
 
 def show_accuracy(res):
-	print("Précision du résultat : %f" % res)
-	print('----------------------------------------------------------'  + '\n')
+	cprint("Précision du résultat : %f" % res, 'green')
 
 def feature_ablation(tab, neighbors):
 	print('Running feature ablation...')
@@ -87,6 +93,7 @@ def feature_ablation(tab, neighbors):
 		Ytest = tab[1]['CLASS']
 		show_accuracy(acc_score(neigh,Xtest,Ytest))
 
+@timing
 def best_knn(start, end, step, tab):
 	print("Calcul du meilleur voisin en cours")
 	val = 0

@@ -1,11 +1,12 @@
-# import numpy as np
+import numpy as np
 import matplotlib.pyplot as plt
 # from sklearn import svm
 import pandas as pd
 from sklearn.svm import SVC
-# from matplotlib import style
-# style.use("ggplot")
-
+from matplotlib import style
+style.use("ggplot")
+from timer import timing
+from termcolor import colored, cprint
 
 # def Build_Data_Set(features = ["CDSITFAM", "MTREV"]):
     
@@ -63,14 +64,21 @@ def acc_score(svm,dataTest,classeTest):
 	return svm.score(dataTest,classeTest)
 
 def show_accuracy(res):
-	print("Précision du résultat : %f" % res)
-	print('----------------------------------------------------------'  + '\n')
+	cprint("Précision du résultat : %f" % res, 'green')
 
-def run_svm(tab):
-    X = drop_class_data(tab[0])
-    y = only_class_data(tab[0])
-    svm = SVC(gamma='auto')
-    svm.fit(X,y)
-    Xtest = drop_class_data(tab[1])
-    Ytest = only_class_data(tab[1])
-    show_accuracy(acc_score(svm,Xtest,Ytest))
+@timing
+def run_svm(tab, phase):
+	X = drop_class_data(tab[0])
+	y = only_class_data(tab[0])
+	svm = SVC(gamma='auto')
+	svm.fit(X,y)
+
+	if phase == 'test':	
+		Xtest = drop_class_data(tab[1])
+		Ytest = only_class_data(tab[1])
+	elif phase == 'validation':
+		Xtest = drop_class_data(tab[2])
+		Ytest = only_class_data(tab[2])
+
+	show_accuracy(acc_score(svm,Xtest,Ytest))
+
