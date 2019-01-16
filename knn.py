@@ -10,7 +10,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from termcolor import colored, cprint
-from timer import timing
+from manager import timing
+import configparser as cp
 
 
 def read_file(file):
@@ -39,7 +40,7 @@ def acc_score(neigh,dataTest,classeTest):
 	return neigh.score(dataTest,classeTest)
 
 @timing
-def run_knn(tab, neighbors, phase):
+def run_knn(tab, neighbors, phase, type):
 	X = drop_class_data(tab[0])
 	y = only_class_data(tab[0])
 	neigh = fit_data2(X,y, neighbors)
@@ -49,8 +50,17 @@ def run_knn(tab, neighbors, phase):
 	elif phase == 'validation':
 		Xtest = drop_class_data(tab[2])
 		Ytest = only_class_data(tab[2])
+		section = 'KNN' + type
+		option = 'score'
+		config = cp.ConfigParser()
+		config.read('results.ini')
+		config.set(section, option, str(acc_score(neigh,Xtest,Ytest)))
+		with open('results.ini', 'w') as configfile:
+			config.write(configfile)
+
 
 	show_accuracy(acc_score(neigh,Xtest,Ytest))
+	
 
 def make_graph(start, end, step, tab, nameFig):
 	print("Création du graphe en cours")
@@ -93,7 +103,7 @@ def feature_ablation(tab, neighbors):
 		Ytest = tab[1]['CLASS']
 		show_accuracy(acc_score(neigh,Xtest,Ytest))
 
-@timing
+
 def best_knn(start, end, step, tab):
 	print("Calcul du meilleur voisin en cours")
 	val = 0

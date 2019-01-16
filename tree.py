@@ -5,8 +5,9 @@ from sklearn import tree as tr
 
 import pandas as pd 
 # import sklearn
-from timer import timing
+from manager import timing
 from termcolor import colored, cprint
+import configparser as cp
 
 
 def read_file(file):
@@ -30,7 +31,7 @@ def show_accuracy(res):
 	cprint("Précision du résultat : %f" % res, 'green')
 
 @timing
-def run_tree(tab, phase):
+def run_tree(tab, phase, type):
 	X = drop_class_data(tab[0])
 	y = only_class_data(tab[0])
 	dec = fit_data(X,y)
@@ -41,6 +42,13 @@ def run_tree(tab, phase):
 	elif phase == 'validation':
 		Xtest = drop_class_data(tab[2])
 		Ytest = only_class_data(tab[2])
+		section = 'TREE' + type
+		option = 'score'
+		config = cp.ConfigParser()
+		config.read('results.ini')
+		config.set(section, option, str(acc_score(dec,Xtest,Ytest)))
+		with open('results.ini', 'w') as configfile:
+			config.write(configfile)
 
 	show_accuracy(acc_score(dec,Xtest,Ytest))
 

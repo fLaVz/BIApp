@@ -5,8 +5,10 @@ import pandas as pd
 from sklearn.svm import SVC
 from matplotlib import style
 style.use("ggplot")
-from timer import timing
+from manager import timing
 from termcolor import colored, cprint
+import configparser as cp
+
 
 # def Build_Data_Set(features = ["CDSITFAM", "MTREV"]):
     
@@ -66,8 +68,9 @@ def acc_score(svm,dataTest,classeTest):
 def show_accuracy(res):
 	cprint("Précision du résultat : %f" % res, 'green')
 
+
 @timing
-def run_svm(tab, phase):
+def run_svm(tab, phase, type):
 	X = drop_class_data(tab[0])
 	y = only_class_data(tab[0])
 	svm = SVC(gamma='auto')
@@ -79,6 +82,13 @@ def run_svm(tab, phase):
 	elif phase == 'validation':
 		Xtest = drop_class_data(tab[2])
 		Ytest = only_class_data(tab[2])
+		section = 'SVM' + type
+		option = 'score'
+		config = cp.ConfigParser()
+		config.read('results.ini')
+		config.set(section, option, str(acc_score(svm,Xtest,Ytest)))
+		with open('results.ini', 'w') as configfile:
+			config.write(configfile)
+
 
 	show_accuracy(acc_score(svm,Xtest,Ytest))
-

@@ -3,7 +3,7 @@
 import pandas as pd
 import shutil
 from datetime import datetime
-from timer import timing
+
 
 path1 = 'clean1.csv'
 path2 = 'clean2.csv'
@@ -96,7 +96,7 @@ def mergetables(type):
     # for tests purposes
     m_learn.to_csv('test.csv', sep=',', encoding='utf-8', index=False)
     
-    alldata = [m_learn, m_test, m_validate]
+    alldata = [m_learn, m_validate, m_test]
     return alldata
 
 def getDumm(df):
