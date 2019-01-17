@@ -1,19 +1,21 @@
 # BIApp
 
-## Structure
+## How to
 
-### Prepare Data
+Clonez le projet:  
+> git clone https://github.com/fLaVz/BIApp  
 
-- [x] Explore
-- [x] Clean 
-- [ ] Reshape
-- [ ] Preprocessing 
-- [ ] Cut
+Placez vous dans le dossier racine  
+Lancer l'application en utilisant la commande:  
+> python run.py  
 
-### Classification
+Si l'application ne se lance pas, verifiez que vous avez bien toutes les librairies installées:  
+* sklearn
+* mathplotlib
+* numpy
+* pandas
+* termcolor
+* configparser
 
-- [ ] SVM, K plus proche voisin & ?
-- [ ] Learn
-- [ ] Compare
-- [ ] Refining
-- [ ] Evaluate
+
+Tout est affiché en console.
