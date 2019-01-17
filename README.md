@@ -2,10 +2,7 @@
 
 ## How to
 
-Clonez le projet:  
-> git clone https://github.com/fLaVz/BIApp  
-
-Placez vous dans le dossier racine  
+Placez vous à la racine du projet.  
 Lancer l'application en utilisant la commande:  
 > python run.py  
 
