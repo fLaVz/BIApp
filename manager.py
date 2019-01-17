@@ -34,7 +34,7 @@ def define_best():
     method = 'default'
 
     for section in config.sections():
-        tmp = (config.getfloat(section, 'exec_time') / 5) / config.getfloat(section, 'score')
+        tmp = config.getfloat(section, 'exec_time') / config.getfloat(section, 'score')
         if tmp < best_score:
             best_score = tmp
             method = section

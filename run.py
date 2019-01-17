@@ -26,7 +26,7 @@ if __name__ == "__main__":
     merge_evo = cleaner.mergetables('evolved')
 
     # basic
-    cprint('Phase d\'apprentissage', 'red')
+    cprint('Phase d\'apprentissage/Validation', 'red')
     print('Version Basique')
     cprint('Knn en cours...', 'cyan')
     knn.run_knn(merge_base, 34, 'test', 'base')
@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     ## Validation
     print('=================================================================')
-    cprint('Phase de validation', 'red')
+    cprint('Phase de test', 'red')
     print('Version Basique')
     cprint('Knn en cours...', 'cyan')
     knn.run_knn(merge_base, 34, 'validation', 'base')
