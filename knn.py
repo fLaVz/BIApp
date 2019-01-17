@@ -45,18 +45,21 @@ def run_knn(tab, neighbors, phase, type):
 	y = only_class_data(tab[0])
 	neigh = fit_data2(X,y, neighbors)
 	if phase == 'test':
-		Xtest = drop_class_data(tab[1])
-		Ytest = only_class_data(tab[1])
-	elif phase == 'validation':
 		Xtest = drop_class_data(tab[2])
 		Ytest = only_class_data(tab[2])
-		section = 'KNN' + type
+	elif phase == 'validation':
+		Xtest = drop_class_data(tab[1])
+		Ytest = only_class_data(tab[1])
+		section = 'KNN_' + type
 		option = 'score'
 		config = cp.ConfigParser()
 		config.read('results.ini')
 		config.set(section, option, str(acc_score(neigh,Xtest,Ytest)))
 		with open('results.ini', 'w') as configfile:
 			config.write(configfile)
+	elif phase == 'apprentissage':
+		Xtest = drop_class_data(tab[0])
+		Ytest = only_class_data(tab[0])
 
 
 	show_accuracy(acc_score(neigh,Xtest,Ytest))

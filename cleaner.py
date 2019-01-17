@@ -57,11 +57,11 @@ def mergetables(type):
     df2 = addTarget(df2)
 
     if type == 'base':  
-        print("Unification basique")
+        print('Unification simple')
         cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDCATCL', 'CDSITFAM', 'CLASS']
         # dftest = pd.read_csv('clean1.csv', usecols=cols)
     elif type == 'evolved':
-        print("Unification évoluée")
+        print('Unification complexe')
         df2['AGEAD'] = list(map(sub_year, zip(df2['DTADH'], df2['DTNAIS'])))
         df2['AGEDEM'] = list(map(sub_year, zip(df2['DTDEM'], df2['DTNAIS'])))
         cols = ['CDSEXE', 'MTREV', 'NBENF', 'CDTMT', 'CDSITFAM', 'CDCATCL', 'AGEAD', 'AGEDEM', 'CLASS']

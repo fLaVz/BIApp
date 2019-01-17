@@ -14,7 +14,7 @@ def timing(f):
         print('Elapsed time: {}'.format(end-start))
         exec_time = format(end-start)
         # get name + phase of function via magic method
-        section = f.__name__.split('_')[1].upper() + args[len(args) - 1]
+        section = f.__name__.split('_')[1].upper() + '_' + args[len(args) - 1]
     
         if args[len(args) - 2] == 'validation':
             config = cp.ConfigParser()
@@ -39,4 +39,5 @@ def define_best():
             best_score = tmp
             method = section
 
-    return method
+    best = [method.split('_')[0], method.split('_')[1]]
+    return best

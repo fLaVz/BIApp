@@ -37,18 +37,21 @@ def run_tree(tab, phase, type):
 	dec = fit_data(X,y)
 
 	if phase == 'test':
-		Xtest = drop_class_data(tab[1])
-		Ytest = only_class_data(tab[1])
-	elif phase == 'validation':
 		Xtest = drop_class_data(tab[2])
 		Ytest = only_class_data(tab[2])
-		section = 'TREE' + type
+	elif phase == 'validation':
+		Xtest = drop_class_data(tab[1])
+		Ytest = only_class_data(tab[1])
+		section = 'TREE_' + type
 		option = 'score'
 		config = cp.ConfigParser()
 		config.read('results.ini')
 		config.set(section, option, str(acc_score(dec,Xtest,Ytest)))
 		with open('results.ini', 'w') as configfile:
 			config.write(configfile)
+	elif phase == 'apprentissage':
+		Xtest = drop_class_data(tab[0])
+		Ytest = only_class_data(tab[0])
 
 	show_accuracy(acc_score(dec,Xtest,Ytest))
 
